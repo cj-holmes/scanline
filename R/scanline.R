@@ -20,6 +20,7 @@
 #'     the background scanline colours (default = 0.5)
 #' @param border_size image border size as proportion of \code{vertical_res} (default = 0.1)
 #' 
+#' @details Image processing is handled by the {magick} package. Images are resized using \code{magick::image_resize()}
 #' @export
 scanline <-
     function(

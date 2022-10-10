@@ -48,3 +48,6 @@ Give an image that old school computer terminal scanline feel.
 
 It's just for fun. Images may not be rendered correctly and detail will certainly be missing.
 }
+\details{
+Image processing is handled by the {magick} package. Images are resized using \code{magick::image_resize()}
+}

@@ -30,7 +30,7 @@ image_read(m) |>
 
 
 v <- 485
-e <- 50
+e <- 40
 test_image <-
     image_read('https://i0.wp.com/testprint.net/wp-content/uploads/2022/05/Testprint-testpage-sec-BW.jpg?resize=362%2C485&ssl=1') |>
     image_resize(paste0("x", v))
