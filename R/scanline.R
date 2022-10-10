@@ -1,5 +1,9 @@
 #' Convert an image to a retro-futuristic scanline image
-#'
+#' 
+#' Inspired by the aesthetics of the Alien films. 
+#'     Give an image that old school computer terminal scanline feel.
+#'     
+#' It's just for fun. Images may not be rendered correctly and detail will certainly be missing.
 #'
 #' @param image a magick image or image file path/URL
 #' @param vertical_res vertical dimension of resized image in pixels (default = 300)
@@ -15,7 +19,7 @@
 #' @param col_background_scanline_factor factor by which the foreground scanline colour brightness is reduced to make the
 #'     the background scanline colours (default = 0.5)
 #' @param border_size image border size as proportion of \code{vertical_res} (default = 0.1)
-#'
+#' 
 #' @export
 scanline <-
     function(
@@ -31,25 +35,28 @@ scanline <-
         col_background_scanline_factor = 0.5,
         border_size = 0.1){
 
+        # Read image file
         if('magick-image' %in% class(image)){
             i <- image
         } else {
             i <- magick::image_read(image)
         }
 
-        # Create a darker shade of the fg colour
+        # Create a darker shade of the fg colours:
+        # Convert fg colours to HSV
         col_fg_hsv <- col_scanline |> col2rgb() |> rgb2hsv()
+        # Decrease lightness of each one by col_background_scanline_factor and return hex colour
         col_fg_dark <-
             apply(
                 X = col_fg_hsv,
                 MARGIN = 2,
                 FUN = function(x) hsv(x[1], x[2], x[3]*col_background_scanline_factor))
 
-        # Create the two colour ramps
+        # Create the two colour ramps for the foreground and darker background
         ramp_fg <- colorRamp(col_scanline, space = "Lab")
-
         ramp_fg_dark <- colorRamp(col_fg_dark, space = "Lab")
 
+        # Process image, convert to scaled matrix
         m <-
             i |>
             magick::image_resize(paste0("x", vertical_res)) |>
@@ -65,12 +72,19 @@ scanline <-
         # Compute scan line positions from middle row of image
         # Vertical midpoint
         mp <- floor(vertical_res/2)
-
+        
+        # Scanline y values
         sl <-
             unique(
                 c(seq(from = mp, to = 1, by = -every),
                   seq(from = mp, to = vertical_res, by = every)))
 
+        # Compute the rectangle start/stop and thickness values
+        #   Start/stop from rle() across the scanline
+        #   Thickness from the scaled values of the matrix
+        # Each row of dataframe is a rectangle
+        #    Assign colour for each rectangle in two columns in the dataframe
+        #   This means I don't need to fill by two separate scales but can fill by identity instead
         df <-
             purrr::map_dfr(
                 .x = sl,

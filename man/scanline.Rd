@@ -43,5 +43,8 @@ the background scanline colours (default = 0.5)}
 \item{border_size}{image border size as proportion of \code{vertical_res} (default = 0.1)}
 }
 \description{
-Convert an image to a retro-futuristic scanline image
+Inspired by the aesthetics of the Alien films.
+Give an image that old school computer terminal scanline feel.
+
+It's just for fun. Images may not be rendered correctly and detail will certainly be missing.
 }
