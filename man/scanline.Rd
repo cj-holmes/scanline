@@ -25,7 +25,7 @@ scanline(
 \item{shades}{preferred number of grey shades in image.
 The actual number of colors in the image may be less than this value, but never more (default = 32)}
 
-\item{every}{the spacing between selected scanlines above and below the vertical center scanline}
+\item{every}{the increment between selected scanlines above and below the vertical center scanline (default = 6). Smaller numbers produce more scanlines.}
 
 \item{background_scanline_thickness}{thickness of the background scanline (larger is thicker).
 A value of 1 will make the background scanlines touch at the brightest colour shade (default = 0.95)}
