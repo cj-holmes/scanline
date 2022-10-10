@@ -22,7 +22,7 @@ This project has been on the back-burner for a long time, but the rough
 code I initially wrote almost a year ago has now turned into this
 `{scanline}` package.
 
-This package is super niche an is just for fun.
+This package is super niche and is just for fun.
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
 
@@ -38,7 +38,7 @@ Add `{scanline}` to the search path
 library(scanline)
 ```
 
-Define a function for convenience in the README that will plot the
+Define a function for convenience in this README file that will plot the
 original image and scanline image side by side
 
 ``` r
@@ -71,13 +71,13 @@ scanline_compare('https://www.looper.com/img/gallery/why-alien-3-almost-never-go
 scanline_compare('https://www.scified.com/articles/rumor-alien-covenants-connection-to-ellen-ripley-revealed-28.jpg')
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
 
 ``` r
 scanline_compare('https://alienseries.files.wordpress.com/2012/11/alien_ripley_ref4.jpg')
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-3.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
 
 ### Non-defaults
 
@@ -89,7 +89,7 @@ scanline_compare(
     every = 4)
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 
 Decrease number of scanlines
 
@@ -99,7 +99,7 @@ scanline_compare(
     every = 10)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
 
 Change colours
 
@@ -109,7 +109,7 @@ scanline_compare(
     col_scanline = viridis::mako(10))
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
 
 ``` r
 scanline_compare(
@@ -117,4 +117,4 @@ scanline_compare(
     col_scanline = viridis::turbo(10))
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />

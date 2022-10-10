@@ -27,7 +27,7 @@ At the start of Alien 3, several 'retro-futuristic' scanline portrait images are
 
 This project has been on the back-burner for a long time, but the rough code I initially wrote almost a year ago has now turned into this `{scanline}` package. 
 
-This package is super niche an is just for fun.
+This package is super niche and is just for fun.
 
 ```{r fig.height = 3, fig.width = 9, echo=FALSE, fig.subcap='Alien 3 scanline images'}
 patchwork::wrap_plots(
@@ -47,7 +47,7 @@ Add `{scanline}` to the search path
 library(scanline)
 ```
 
-Define a function for convenience in the README that will plot the original image and scanline image side by side
+Define a function for convenience in this README file that will plot the original image and scanline image side by side
 ```{r}
 scanline_compare <- function(img, ...){
     
@@ -64,37 +64,42 @@ scanline_compare <- function(img, ...){
 The default arguments try to replicate the overall feel of the original scaline images shown above. However, many custom parameters can be chosen to significantly change the output.
 
 ### Defaults
-```{r fig.width=9, fig.height=3}
+```{r fig.width=9, fig.height=2.7}
 scanline_compare('https://www.looper.com/img/gallery/why-alien-3-almost-never-got-released/intro-1632832833.jpg')
+```
+
+
+```{r fig.width=9, fig.height=3.4}
 scanline_compare('https://www.scified.com/articles/rumor-alien-covenants-connection-to-ellen-ripley-revealed-28.jpg')
+```
+```{r fig.width=9, fig.height=3.6}
 scanline_compare('https://alienseries.files.wordpress.com/2012/11/alien_ripley_ref4.jpg')
 ```
 
 ### Non-defaults
 Increase number of scanlines
-```{r fig.width=9, fig.height=3}
+```{r fig.width=9, fig.height=3.2}
 scanline_compare(
     img = 'https://m.media-amazon.com/images/M/MV5BMTI4NDIyMDM2OF5BMl5BanBnXkFtZTcwMTM2NTUyMw@@._V1_.jpg', 
     every = 4)
 ```
 
 Decrease number of scanlines
-```{r fig.width=9, fig.height=3}
+```{r fig.width=9, fig.height=2.7}
 scanline_compare(
     img = 'https://static.wikia.nocookie.net/avp/images/0/08/Ripley_sees_Bishop%27s_blood.jpg/revision/latest/scale-to-width-down/1280?cb=20150131231549',
     every = 10)
 ```
 
 Change colours
-```{r fig.width=9, fig.height=4}
+```{r fig.width=9, fig.height=3.6}
 scanline_compare(
     img = 'https://static.wikia.nocookie.net/absolutehorror/images/2/28/Brett.jpg/revision/latest?cb=20120921174959',
     col_scanline = viridis::mako(10))
 ```
 
-```{r fig.width=9, fig.height=3}
+```{r fig.width=9, fig.height=2.7}
 scanline_compare(
     img = 'https://bloody-disgusting.com/wp-content/uploads/2020/06/alien-1979-026-yaphet-kotto-sigourney-weaver-ian-holm-16x9-1.jpg',
     col_scanline = viridis::turbo(10))
 ```
-
