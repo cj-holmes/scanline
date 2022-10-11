@@ -2,29 +2,35 @@ library(tidyverse)
 library(magick)
 library(scanline)
 
-n <- 10
-m <- matrix(rep("white", 100), nrow = n)
+nx <- 20
+ny <- 10
+
+m <- matrix(rep("white", nx*ny), nrow = ny)
 m[, 3] <- "black"
 m[, 6] <- "grey"
-m[2, ] <- grey.colors(10, start = 0, end = 1)
+m[2, ] <- grey.colors(nx, start = 0, end = 1)
+m[4, 12:18] <- "grey50"
+m[5:8, 15] <- "grey10"
 
-image_read(m) |>
+image_read(m) |> 
     scanline(
-        vertical_res = n,
+        vertical_res = ny,
         every = 1,
         shades = 200,
         background_scanline_thickness = 1,
         col_scanline = "seagreen1")+
     geom_raster(
         data =
-            crossing(y = 1:n, x = 1:n) |>
+            crossing(y = 1:ny, x = 1:nx) |>
             arrange(x, desc(y)) |>
             mutate(m = as.vector(m),
                    f = "f"),
         aes(x, y, fill = I(m)), alpha = 0.5)+
     geom_hline(yintercept = (0:9)+0.5, lty = 2)+
-    scale_x_continuous(breaks = 0:n)+
-    scale_y_continuous(breaks = 0:n)+
+    geom_hline(yintercept = c(1, ny), col = "red")+
+    geom_vline(xintercept = c(1, nx), col = "red")+
+    scale_x_continuous(breaks = 0:nx)+
+    scale_y_continuous(breaks = 0:ny)+
     theme_grey()+
     theme(panel.grid.minor = element_blank())
 
