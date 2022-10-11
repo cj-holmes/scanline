@@ -103,3 +103,25 @@ scanline_compare(
     img = 'https://bloody-disgusting.com/wp-content/uploads/2020/06/alien-1979-026-yaphet-kotto-sigourney-weaver-ian-holm-16x9-1.jpg',
     col_scanline = viridis::turbo(10))
 ```
+
+### Charts 
+**Not recommended!!** - but you absolutely could make your plots look like they are being viewed on a terminal onboard the Nostromo! Using the `{magick}` graphics device to create an image of the plot which is then passed to `scanline()`
+
+```{r message = FALSE, warning = FALSE}
+library(magick)
+library(tidyverse)
+
+fig <- magick::image_device(1800, 1000, res = 450)
+
+diamonds |> 
+    ggplot() + 
+    geom_density(aes(price), fill = "grey60")+
+    theme_linedraw()+
+    theme(panel.grid = element_blank())+
+    labs(title = "Diamond price distribution")
+
+dev.off()
+
+fig |> image_negate() |> image_blur(8,2) |> scanline::scanline(every = 2)
+```
+

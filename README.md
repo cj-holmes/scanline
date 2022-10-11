@@ -118,3 +118,32 @@ scanline_compare(
 ```
 
 <img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
+
+### Charts
+
+**Not recommended!!** - but you absolutely could make your plots look
+like they are being viewed on a terminal onboard the Nostromo! Using the
+`{magick}` graphics device to create an image of the plot which is then
+passed to `scanline()`
+
+``` r
+library(magick)
+library(tidyverse)
+
+fig <- magick::image_device(1800, 1000, res = 450)
+
+diamonds |> 
+    ggplot() + 
+    geom_density(aes(price), fill = "grey60")+
+    theme_linedraw()+
+    theme(panel.grid = element_blank())+
+    labs(title = "Diamond price distribution")
+
+dev.off()
+#> png 
+#>   2
+
+fig |> image_negate() |> image_blur(8,2) |> scanline::scanline(every = 2)
+```
+
+<img src="man/figures/README-unnamed-chunk-13-1.png" width="100%" />
