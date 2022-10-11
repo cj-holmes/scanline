@@ -3,7 +3,7 @@
 #' Inspired by the aesthetics of the Alien films. 
 #'     Give an image that old school computer terminal scanline feel.
 #'     
-#' It's just for fun. Images may not be rendered correctly and detail will certainly be missing.
+#' This is just for fun. Images may not be rendered correctly and detail will certainly be missing!
 #'
 #' @param image a magick image or image file path/URL
 #' @param vertical_res vertical dimension of resized image in pixels (default = 300)
@@ -58,6 +58,9 @@ scanline <-
         ramp_fg_dark <- colorRamp(col_fg_dark, space = "Lab")
 
         # Process image, convert to scaled matrix
+        # This matrix is a flipped (top to bottom) version of the image
+        # So matrix row 1 (the top/first row as you look in the console) is the
+        # bottom row of the image as you would look at it
         m <-
             i |>
             magick::image_resize(paste0("x", vertical_res)) |>
@@ -65,7 +68,10 @@ scanline <-
             magick::image_quantize(shades, dither = FALSE, treedepth = 0) |>
             magick::image_flip() |>
             magick::image_raster() |>
-            dplyr::mutate(col2rgb(col) |> t() |> tibble::as_tibble()) |>
+            dplyr::mutate(
+                col2rgb(col) |> 
+                    t() |> 
+                    tibble::as_tibble()) |>
             dplyr::pull(red) |>
             scales::rescale(to = c(0, (every/2)*background_scanline_thickness)) |>
             matrix(nrow = vertical_res, byrow = TRUE)
@@ -108,7 +114,7 @@ scanline <-
             dplyr::mutate(
                 fill_col = ramp_fg(scales::rescale(thickness)) |> rgb(maxColorValue = 255),
                 fill_col_dark = ramp_fg_dark(scales::rescale(thickness)) |> rgb(maxColorValue = 255))
-
+        
         # Plot scanline image
         ggplot2::ggplot()+
             # Plot darker color scan line first (thicker with default settings)
