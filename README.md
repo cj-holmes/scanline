@@ -127,23 +127,20 @@ like they are being viewed on a terminal onboard the Nostromo! Using the
 passed to `scanline()`
 
 ``` r
-library(magick)
-library(tidyverse)
-
 fig <- magick::image_device(1800, 1000, res = 450)
 
-diamonds |> 
-    ggplot() + 
-    geom_density(aes(price), fill = "grey60")+
-    theme_linedraw()+
-    theme(panel.grid = element_blank())+
-    labs(title = "Diamond price distribution")
+ggplot2::diamonds |> 
+    ggplot2::ggplot() + 
+    ggplot2::geom_density(ggplot2::aes(price), fill = "grey60")+
+    ggplot2::theme_linedraw()+
+    ggplot2::theme(panel.grid = ggplot2::element_blank())+
+    ggplot2::labs(title = "Diamond price distribution")
 
 dev.off()
 #> png 
 #>   2
 
-fig |> image_negate() |> image_blur(8,2) |> scanline::scanline(every = 2)
+fig |> magick::image_negate() |> magick::image_blur(8,3) |> scanline(every = 2)
 ```
 
 <img src="man/figures/README-unnamed-chunk-13-1.png" width="100%" />
