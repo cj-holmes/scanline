@@ -20,12 +20,13 @@ scanline(
 \arguments{
 \item{image}{a magick image or image file path/URL}
 
-\item{vertical_res}{vertical dimension of resized image in pixels (default = 300)}
+\item{vertical_res}{the image is resized to have a vertical dimension of \code{vertical_res} pixels before the scanlines are processed (default = 300)}
 
 \item{shades}{preferred number of grey shades in image.
-The actual number of colors in the image may be less than this value, but never more (default = 32)}
+The actual number of colors in the image may be less than this value, but never more (default = 256)}
 
-\item{every}{the increment between selected scanlines above and below the vertical center scanline (default = 6). Smaller numbers produce more scanlines.}
+\item{every}{the increment between selected scanlines above and below the vertical center scanline of the resized image (default = 6).
+Smaller numbers produce more scanlines.}
 
 \item{background_scanline_thickness}{thickness of the background scanline (larger is thicker).
 A value of 1 will make the background scanlines touch at the brightest colour shade (default = 0.95)}
@@ -41,6 +42,9 @@ A value of 1 will make the foreground scanline the same thickness as the backgro
 the background scanline colours (default = 0.5)}
 
 \item{border_size}{image border size as proportion of \code{vertical_res} (default = 0.1)}
+}
+\value{
+a ggplot2 object
 }
 \description{
 Inspired by the aesthetics of the Alien films.

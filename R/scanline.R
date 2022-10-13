@@ -6,10 +6,11 @@
 #' This is just for fun. Images may not be rendered correctly and detail will certainly be missing!
 #'
 #' @param image a magick image or image file path/URL
-#' @param vertical_res vertical dimension of resized image in pixels (default = 300)
+#' @param vertical_res the image is resized to have a vertical dimension of \code{vertical_res} pixels before the scanlines are processed (default = 300)
 #' @param shades preferred number of grey shades in image.
-#'     The actual number of colors in the image may be less than this value, but never more (default = 32)
-#' @param every the increment between selected scanlines above and below the vertical center scanline (default = 6). Smaller numbers produce more scanlines.
+#'     The actual number of colors in the image may be less than this value, but never more (default = 256)
+#' @param every the increment between selected scanlines above and below the vertical center scanline of the resized image (default = 6). 
+#'     Smaller numbers produce more scanlines.
 #' @param background_scanline_thickness thickness of the background scanline (larger is thicker).
 #'     A value of 1 will make the background scanlines touch at the brightest colour shade (default = 0.95)
 #' @param foreground_scanline_thickness thickness of the foreground scanline colour as a proportion of the background scanline thickness
@@ -21,6 +22,7 @@
 #' @param border_size image border size as proportion of \code{vertical_res} (default = 0.1)
 #' 
 #' @details Image processing is handled by the {magick} package. Images are resized using \code{magick::image_resize()}
+#' @return a ggplot2 object
 #' @export
 scanline <-
     function(
