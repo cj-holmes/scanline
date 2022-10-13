@@ -18,13 +18,11 @@ At the start of Alien 3, several ‘retro-futuristic’ scanline portrait
 images are seen (shown below), and I was keen to see if I could recreate
 this scanline style for any given image with R.
 
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+
 This project has been on the back-burner for a long time, but the rough
 code I initially wrote almost a year ago has now turned into this
-`{scanline}` package.
-
-This package is super niche and is just for fun.
-
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+`{scanline}` package. This package is super niche and is just for fun.
 
 `{scanline}` can be installed from github
 

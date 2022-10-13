@@ -3,7 +3,7 @@
 #' Inspired by the aesthetics of the Alien films. 
 #'     Give an image that old school computer terminal scanline feel.
 #'     
-#' This is just for fun. Images may not be rendered correctly and detail will certainly be missing!
+#' This is just for fun **and is experimental**. Images may not be rendered correctly and detail will certainly be missing!
 #'
 #' @param image a magick image or image file path/URL
 #' @param vertical_res the image is resized to have a vertical dimension of \code{vertical_res} pixels before the scanlines are processed (default = 300)
