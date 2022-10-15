@@ -66,8 +66,8 @@ scanline <-
         m <-
             i |>
             magick::image_resize(paste0("x", vertical_res)) |>
-            magick::image_convert(colorspace = "gray") |>
             magick::image_quantize(shades, dither = FALSE, treedepth = 0) |>
+            magick::image_convert(colorspace = "gray") |>
             magick::image_flip() |>
             magick::image_raster() |>
             dplyr::mutate(
