@@ -1,144 +1,172 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# scanline <img src="data-raw/scanline-hex/hex.png" align="right" height="139"/>
-
-## Intro
+# scanline <img src="data-raw/scanline-hex/hex.png" align="right" height="160"/>
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 
-I have always loved the aesthetic feel of David Fincher’s Alien 3 film.
-From the cavernous, brutal and liminal environments, to the desolate and
-isolated nature of the story. In fact, I have always really loved the
-aesthetic of the Alien films in general, and more recently the
-incredible Alien Isolation game.
+## Update
 
-At the start of Alien 3, several ‘retro-futuristic’ scanline portrait
-images are seen (shown below), and I was keen to see if I could recreate
-this scanline style for any given image with R.
+-   June 2023
+    -   I have completely re-written `{scanline}` after stumbling upon
+        [Ole Ivar Rudi’s CRT scanline
+        hack](https://twitter.com/oleivarrudi/status/895665025251123201?s=20).
+    -   **There are a tonne of breaking changes - nothing will work as
+        before!**
+    -   The return image is still a ggplot render, but the
+        parametrisation is very different
+    -   Please log any bugs you find!
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+## Intro
 
-This project has been on the back-burner for a long time, but the rough
-code I initially wrote almost a year ago has now turned into this
-`{scanline}` package. This package is super niche and is just for fun.
+-   I have always loved the aesthetic feel of David Fincher’s Alien 3
+    film. From the cavernous, brutal and liminal environments, to the
+    desolate and isolated nature of the story. In fact, I have always
+    really loved the aesthetic of the Alien films in general, and more
+    recently the incredible Alien Isolation game.
+-   At the start of Alien 3, several ‘retro-futuristic’ scanline
+    portrait images are seen (shown below), and I was keen to see if I
+    could recreate this scanline style for any given image with R.
+-   This project has been on the back-burner for a long time, but the
+    rough code I initially wrote years ago has now turned into this
+    `{scanline}` package. This package is super niche and is just for
+    fun.
 
-`{scanline}` can be installed from github
+![](man/figures/README-unnamed-chunk-2-1.png)<!-- -->
+
+-   `{scanline}` can be installed from github
 
 ``` r
 remotes::install_github('https://github.com/cj-holmes/scanline')
 ```
 
-Add `{scanline}` to the search path
+-   Add `{scanline}` to the search path
 
 ``` r
 library(scanline)
 ```
 
-Define a function for convenience in this README file that will plot the
-original image and scanline image side by side
+## Example outputs
+
+-   The default arguments try to replicate the overall feel of the
+    original scanline images shown above. However, custom parameters can
+    be chosen to significantly change the look of the output
+
+### Ripley
 
 ``` r
-scanline_compare <- function(img, ...){
-    
-    i <- magick::image_read(img)
-    
-    patchwork::wrap_plots(
-        magick::image_ggplot(i), 
-        scanline(i, ...)) &
-        ggplot2::theme(plot.margin = ggplot2::unit(c(1,1,1,1), "mm"))
-}
+i <- 'https://www.looper.com/img/gallery/why-alien-3-almost-never-got-released/intro-1632832833.jpg'
+magick::image_read(i) |> magick::image_ggplot()
 ```
 
-## Example output
-
-The default arguments try to replicate the overall feel of the original
-scaline images shown above. However, many custom parameters can be
-chosen to significantly change the output.
-
-### Defaults
+![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
 
 ``` r
-scanline_compare('https://www.looper.com/img/gallery/why-alien-3-almost-never-got-released/intro-1632832833.jpg')
+scanline(i, n_scanlines = 50)
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="75%" />
+
+### Dillon
+
+-   Apparently he likes R
 
 ``` r
-scanline_compare('https://www.scified.com/articles/rumor-alien-covenants-connection-to-ellen-ripley-revealed-28.jpg')
+i <- 
+    'https://m.media-amazon.com/images/M/MV5BMTM0OTI2MTg0MV5BMl5BanBnXkFtZTcwNjg3ODEyMw@@._V1_.jpg' |> 
+    magick::image_read() |> 
+    magick::image_resize("x500")
+
+magick::image_ggplot(i)
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="50%" />
 
 ``` r
-scanline_compare('https://alienseries.files.wordpress.com/2012/11/alien_ripley_ref4.jpg')
+i |> 
+    magick::image_extent(geometry = "x600" ,color = "black", gravity = "north") |> 
+    magick::image_annotate("I like R", size = 80, color = "white", gravity = "south", font = "Alien3") |> 
+    scanline(n_scanlines = 100)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="75%" />
 
-### Non-defaults
-
-Increase number of scanlines
+## Clemens
 
 ``` r
-scanline_compare(
-    img = 'https://m.media-amazon.com/images/M/MV5BMTI4NDIyMDM2OF5BMl5BanBnXkFtZTcwMTM2NTUyMw@@._V1_.jpg', 
-    every = 4)
+i <- 'https://i.pinimg.com/originals/35/3c/40/353c40acae809215af994c06ea10d86d.jpg'
+magick::image_read(i) |> magick::image_ggplot()
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
-
-Decrease number of scanlines
+![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
-scanline_compare(
-    img = 'https://static.wikia.nocookie.net/avp/images/0/08/Ripley_sees_Bishop%27s_blood.jpg/revision/latest/scale-to-width-down/1280?cb=20150131231549',
-    every = 10)
+scanline(i)
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="75%" />
 
-Change colours
+## Morse
 
 ``` r
-scanline_compare(
-    img = 'https://static.wikia.nocookie.net/absolutehorror/images/2/28/Brett.jpg/revision/latest?cb=20120921174959',
-    col_scanline = viridis::mako(10))
+i <- 'https://static.wikia.nocookie.net/alienanthology/images/3/3b/Alien_3_Danny_Webb1.jpg/revision/latest?cb=20210320141122'
+magick::image_read(i) |> magick::image_ggplot()
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
+![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
+
+-   Noise can also be added to achieve a certain aesthetic
 
 ``` r
-scanline_compare(
-    img = 'https://bloody-disgusting.com/wp-content/uploads/2020/06/alien-1979-026-yaphet-kotto-sigourney-weaver-ian-holm-16x9-1.jpg',
-    col_scanline = viridis::turbo(10))
+scanline(i, n_scanlines = 100, add_noise = TRUE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-12-1.png" width="75%" />
 
-### Charts
+## GIFs
 
-**Not recommended!!** - but you absolutely could make your plots look
-like they are being viewed on a terminal onboard the Nostromo! Using the
-`{magick}` graphics device to create an image of the plot which is then
-passed to `scanline()`
+-   Gif from
+    [here](https://garrettzecker.files.wordpress.com/2017/04/alien-1979.gif)
+
+<img src="man/figures/README-unnamed-chunk-13-1.gif" width="75%" />
+
+-   `scanline_gif()` is an experimental function for creation of gifs
 
 ``` r
+scanline_gif('data-raw/alien-1979.gif', width = 762, height = 456, add_noise = TRUE)
+```
+
+<img src="man/figures/README-unnamed-chunk-14-1.gif" width="75%" />
+
+## Charts
+
+-   **Not recommended!!** - but you absolutely could make your plots
+    look like they are being viewed on a terminal onboard the Nostromo!
+    Using the `{magick}` graphics device to create an image of the plot
+    which is then passed to `scanline()`
+
+``` r
+library(ggplot2)
+#> Warning: package 'ggplot2' was built under R version 4.2.2
 fig <- magick::image_device(1800, 1000, res = 450)
 
-ggplot2::diamonds |> 
-    ggplot2::ggplot() + 
-    ggplot2::geom_density(ggplot2::aes(price), fill = "grey60")+
-    ggplot2::theme_linedraw()+
-    ggplot2::theme(panel.grid = ggplot2::element_blank())+
-    ggplot2::labs(title = "Diamond price distribution")
+diamonds |> 
+    ggplot() + 
+    geom_density(aes(price, after_stat(scaled)), fill = "grey70")+
+    stat_ecdf(aes(price))+
+    theme_linedraw()+
+    theme(panel.grid = element_blank())+
+    labs(
+        title = "Diamond price distribution",
+        x = "Price",
+        y = "Scaled density")
 
 dev.off()
 #> png 
 #>   2
 
-fig |> magick::image_negate() |> magick::image_blur(8,3) |> scanline(every = 2)
+fig |> magick::image_negate() |> scanline(n_scanlines = 160, border_size = 0, frame_size = 0)
 ```
 
-<img src="man/figures/README-unnamed-chunk-13-1.png" width="100%" />
+![](man/figures/README-unnamed-chunk-15-1.png)<!-- -->

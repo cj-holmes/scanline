@@ -1,5 +1,5 @@
 Package: scanline
-Title: Create images with the retro scanline aesthetic
+Title: Create images with a retro scanline aesthetic
 Version: 0.0.0.9000
 Authors@R: 
     person("Chris", "Holmes", , "c.holmes4@gmail.com", role = c("aut", "cre"))
@@ -7,7 +7,7 @@ Description: Create images with the retro scanline aesthetic.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
@@ -16,5 +16,4 @@ Imports:
     ggplot2,
     magick,
     purrr,
-    scales,
-    tibble
+    scales

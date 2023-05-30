@@ -19,8 +19,10 @@ scales::show_col(cols_df$col)
 i <- 'https://alienseries.files.wordpress.com/2012/11/alien_ripley_ref4.jpg'
 patchwork::wrap_plots(
     img_q |> image_ggplot(),
-    scanline(i, col_scanline = c("black", "darkslategrey", "darkseagreen3", "paleturquoise"), col_background = "black"),
-    ncol = 2
-    )
+    scanline(
+        i, 
+        scanline_col = c("black", "darkslategrey", "darkseagreen3", "paleturquoise"), 
+        normalise = TRUE),
+    ncol = 2)
 
 scales::show_col(c("black", "darkslategrey", "darkseagreen3", "paleturquoise"))
