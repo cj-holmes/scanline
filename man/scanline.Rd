@@ -6,52 +6,58 @@
 \usage{
 scanline(
   image,
-  vertical_res = 300,
-  shades = 256,
-  every = 6,
-  background_scanline_thickness = 0.95,
-  foreground_scanline_thickness = 0.5,
-  col_background = "black",
-  col_scanline = c("black", "darkslategrey", "darkseagreen2", "paleturquoise"),
-  col_background_scanline_factor = 0.5,
-  border_size = 0.1
+  n_scanlines = 60,
+  scanline_col = c("black", "darkslategrey", "darkseagreen2", "paleturquoise"),
+  opacities = c(1, 0.6, 0, 0, 0.6, 1),
+  normalise = FALSE,
+  border_size = 1,
+  border_intensity = 255,
+  frame_size = 10,
+  vertical_filter = "Point",
+  horizontal_filter = "Triangle",
+  composite_operator = "HardLight",
+  debug = FALSE,
+  print_details = FALSE,
+  add_noise = FALSE,
+  noise_type = "gaussian"
 )
 }
 \arguments{
-\item{image}{a magick image or image file path/URL}
+\item{image}{a magick image object or image file path/URL}
 
-\item{vertical_res}{the image is resized to have a vertical dimension of \code{vertical_res} pixels before the scanlines are processed (default = 300)}
+\item{n_scanlines}{the number of scanlines in the image (default = 60)}
 
-\item{shades}{preferred number of grey shades in image.
-The actual number of colors in the image may be less than this value, but never more (default = 256)}
+\item{scanline_col}{character vector of colours from dark to light (reverse order for negative image)}
 
-\item{every}{the increment between selected scanlines above and below the vertical center scanline of the resized image (default = 6).
-Smaller numbers produce more scanlines.}
+\item{opacities}{vector of opacities. The image will be expanded \code{length(opacities)} times in x and y (default = c(1, 0.6, 0, 0, 0.6, 1))}
 
-\item{background_scanline_thickness}{thickness of the background scanline (larger is thicker).
-A value of 1 will make the background scanlines touch at the brightest colour shade (default = 0.95)}
+\item{normalise}{normalise the image with \code{magick::image_normalise()} before applying scanlines (default = FALSE)}
 
-\item{foreground_scanline_thickness}{thickness of the foreground scanline colour as a proportion of the background scanline thickness
-A value of 1 will make the foreground scanline the same thickness as the background scanline (default = 0.5)}
+\item{border_size}{size of border around image in units of scanlines (default = 1)}
 
-\item{col_background}{colour for background of image (default = "grey10")}
+\item{border_intensity}{intensity of border (from 0 (dark) to 255 (light)) (default = 255)}
 
-\item{col_scanline}{vector of colours for foreground scanline}
+\item{frame_size}{size of frame around image as a percentage of the number of \code{n_scanlines} (default = 10)}
 
-\item{col_background_scanline_factor}{factor by which the foreground scanline colour brightness is reduced to make the
-the background scanline colours (default = 0.5)}
+\item{vertical_filter}{resize filter for vertical expansion from \code{magick::filter_types()} (default = "Point")}
 
-\item{border_size}{image border size as proportion of \code{vertical_res} (default = 0.1)}
-}
-\value{
-a ggplot2 object
+\item{horizontal_filter}{resize filter for horizontal expansion from \code{magick::filter_types()} (default = "Triangle")}
+
+\item{composite_operator}{blending operator for scanlines from \code{magick::compose_types()} (default = "HardLight")}
+
+\item{debug}{return an output that contains debugging details (best run with small values for \code{n_scanlines}) (default = FALSE)}
+
+\item{print_details}{print information during processing (default = FALSE)}
+
+\item{add_noise}{add noise to image (default = FALSE)}
+
+\item{noise_type}{\code{magick::noise_types()} value to add to image if \code{add_noise = TRUE} (default = "gaussian")}
 }
 \description{
 Inspired by the aesthetics of the Alien films.
 Give an image that old school computer terminal scanline feel.
-
 This is just for fun \strong{and is experimental}. Images may not be rendered correctly and detail will certainly be missing!
 }
 \details{
-Image processing is handled by the {magick} package. Images are resized using \code{magick::image_resize()}
+Image processing is handled by the {magick} package
 }
