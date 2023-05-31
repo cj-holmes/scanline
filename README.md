@@ -9,6 +9,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 ## Update
 
 -   June 2023
+    -   **This project is in development and is buggy - it is not a
+        finished product!**
     -   I have completely re-written `{scanline}` after stumbling upon
         [Ole Ivar Rudi’s CRT scanline
         hack](https://twitter.com/oleivarrudi/status/895665025251123201?s=20).

@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 
 ## Update 
 * June 2023
+  * **This project is in development and is buggy - it is not a finished product!**
   * I have completely re-written `{scanline}` after stumbling upon [Ole Ivar Rudi’s CRT scanline hack](https://twitter.com/oleivarrudi/status/895665025251123201?s=20).
   * **There are a tonne of breaking changes - nothing will work as before!**
   * The return image is still a ggplot render, but the parametrisation is very different
